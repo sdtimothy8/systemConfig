@@ -1,0 +1,33 @@
+# .bashrc
+
+# User specific aliases and functions
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# User specific aliases and functions
+
+alias cls='clear'
+alias p='pwd'
+alias w='which'
+
+#For directory move
+alias up='cd ..'
+alias ..='cd ..'
+alias up2='cd ../..'
+alias up3='cd ../../..'
+alias ga='grep -r -n "\!*" * |\grep -v Binary |\grep -v text-base |\grep -v .svn |\grep -v "\.o:" |\grep -v "\.d:" |\grep -v "\.a:" |\grep -v "\.swp:"'
+alias s.b='source ~/.bashrc'
+alias v.b='vim ~/.bashrc'
+alias cdligm='cd /home/ligm/'
+
+export TERM=xterm-256color
+
+# For git usage
+

@@ -1,0 +1,81 @@
+set nu
+set ic
+colorscheme desert
+syntax on
+"set background=dark
+"colorscheme solarized
+
+"set 4 spaces for Tab
+set ts=4
+set shiftwidth=4
+set expandtab
+set autoindent
+set smartindent
+set expandtab expandtab
+
+set history=50
+set ruler
+set showcmd
+set incsearch
+set hls
+
+""""""""Settings for the Ctags"""""""""""""""""""""
+set tags=tags;/
+
+""""""""Settings for the Youcompleteme"""""""""""""""""""""
+
+let g:ycm_global_ycm_extra_conf = '/root/.vim/bundle/YouCompleteMe/.ycm_extra_conf.py'  
+let g:ycm_seed_identifiers_with_syntax=1    " 语法关键字补全  
+let g:ycm_confirm_extra_conf=0   " 打开vim时不再询问是否加载ycm_extra_conf.py配置  
+inoremap <expr> <CR>  pumvisible() ? "\<C-y>" : "\<CR>"    "回车即选中当前项  
+set completeopt=longest,menu    "让Vim的补全菜单行为与一般IDE一致(参考VimTip1228)  
+
+
+""""""""Settings for the plugin management tool Vundle"""""""""""""""""""""
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+ set rtp+=~/.vim/bundle/Vundle.vim
+ call vundle#begin()
+ " alternatively, pass a path where Vundle should install plugins
+ "call vundle#begin('~/some/path/here')
+
+ " let Vundle manage Vundle, required
+ Plugin 'VundleVim/Vundle.vim'
+
+ Plugin 'Valloric/YouCompleteMe'
+
+ Plugin 'Raimondi/delimitMate'
+
+ " The following are examples of different formats supported.
+ " Keep Plugin commands between vundle#begin/end.
+ " plugin on GitHub repo
+ "Plugin 'tpope/vim-fugitive'
+ " plugin from http://vim-scripts.org/vim/scripts.html
+ "Plugin 'L9'
+ " Git plugin not hosted on GitHub
+ "Plugin 'git://git.wincent.com/command-t.git'
+ " git repos on your local machine (i.e. when working on your own plugin)
+ "Plugin 'file:///home/gmarik/path/to/plugin'
+ " The sparkup vim script is in a subdirectory of this repo called vim.
+ " Pass the path to set the runtimepath properly.
+ "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+ " Install L9 and avoid a Naming conflict if you've already installed a
+ " different version somewhere else.
+ "Plugin 'ascenator/L9', {'name': 'newL9'}
+
+ " All of your Plugins must be added before the following line
+ call vundle#end()            " required
+ filetype plugin indent on    " required
+ " To ignore plugin indent changes, instead use:
+ "filetype plugin on
+ "
+ " Brief help
+ " :PluginList       - lists configured plugins
+ " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+ " :PluginSearch foo - searches for foo; append `!` to refresh local cache
+ " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+ "
+ " see :h vundle for more details or wiki for FAQ
+ " Put your non-Plugin stuff after this line
