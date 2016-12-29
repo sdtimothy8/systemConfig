@@ -30,4 +30,6 @@ alias cdligm='cd /home/ligm/'
 export TERM=xterm-256color
 
 # For git usage
+alias gst='git status' 
+alias commit='git commit'
 
