@@ -42,11 +42,11 @@ filetype off                  " required
  "call vundle#begin('~/some/path/here')
 
  " let Vundle manage Vundle, required
- Plugin 'VundleVim/Vundle.vim'
+ Plugin 'sdtimothy8/Vundle.vim'
 
- Plugin 'Valloric/YouCompleteMe'
+ Plugin 'sdtimothy8/YouCompleteMe'
 
- Plugin 'Raimondi/delimitMate'
+ "Plugin 'Raimondi/delimitMate'
 
  " The following are examples of different formats supported.
  " Keep Plugin commands between vundle#begin/end.
