@@ -2,7 +2,6 @@
 
 # User specific aliases and functions
 
-alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
@@ -13,9 +12,13 @@ fi
 
 # User specific aliases and functions
 
+history_control=ignoredups
+
 alias cls='clear'
 alias p='pwd'
 alias w='which'
+alias h='history'
+alias vi='vim'
 
 #For directory move
 alias up='cd ..'

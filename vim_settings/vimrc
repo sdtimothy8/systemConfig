@@ -45,6 +45,7 @@ filetype off                  " required
  Plugin 'sdtimothy8/Vundle.vim'
 
  Plugin 'sdtimothy8/YouCompleteMe'
+ Plugin 'sdtimothy8/delimitMate'
 
  "Plugin 'Raimondi/delimitMate'
 
