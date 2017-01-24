@@ -1,0 +1,80 @@
+#!/bin/bash
+#echo "lastlogin success:"
+curuname=`whoami`
+lastlog | grep $curuname | head -n 2 | tail -n 1 > .lastrecod
+cat .lastrecod
+#echo $curuname
+gawk '{print $4,$5,$6,$8}' .lastrecod > .timerecod
+#cat .timerecod
+mon=`gawk '{print $1}' .timerecod`
+monnum=0
+#echo $mon
+case $mon in
+	Jan)
+		monnum=01
+	;;
+	Feb)
+		monnum=02
+	;;
+	Mar)
+		monnum=03
+	;;
+	Apr)
+		monnum=04
+	;;
+	May)
+		monnum=05
+	;;
+	Jun)
+		monnum=06
+	;;
+	Jul)
+		monnum=07
+	;;
+	Aug)
+		monnum=08
+	;;
+	Sep)
+		monnum=09
+	;;
+	Oct)
+		monnum=10
+	;;
+	Nov)
+		monnum=11
+	;;
+	Dec)
+		monnum=12
+	;;
+	*)
+		monnum=01
+	;;
+esac
+day=`awk '{print $2}' .timerecod`
+gawk '{print $3}' .timerecod > .timestmp
+h=`gawk -F: '{print $1}' .timestmp`
+m=`gawk -F: '{print $2}' .timestmp`
+#s=`gawk -F: '{print $3}' .timestmp`
+s=00
+year=`awk '{print $4}' .timerecod`
+lasttime=$year""$monnum""$day""$h""$m""$s
+echo "BAD LOGIN  MESG(since last successed login):"
+lastb  -t $lasttime | grep `whoami` > tlog2
+lastb | grep `whoami` > tlog1
+rm -f tfile*
+#echo $lasttime
+diff -ar tlog1 tlog2 | sed -n '2,$s/^< //p'> tlog3
+#rd=`diff -ar tlog1 tlog2 | sed -n '2,$s/^< //p'`
+if [ -s tlog3 ]
+then
+	cat tlog3
+else
+	echo "NONE"
+fi
+rm -f tlog1
+rm -f tlog2
+rm -f tlog3
+rm -f .timerecod
+rm -f .timestmp
+rm -f .lastrecod
+chage -l `whoami` | grep "Password expires"

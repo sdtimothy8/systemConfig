@@ -1,0 +1,112 @@
+#!/usr/bin/python
+#coding:utf-8
+
+import os, sys
+import BaseHTTPServer
+
+INDEX_HTML = '''
+<html>
+<head>
+	<title>SimpleHTTPFileServer</title>
+	<style>
+	.btn {
+		font-size: 50px;
+	}
+	</style>
+</head>
+<body>
+	<form action="/sendfile" method="post" enctype="multipart/form-data">
+		<input type="file" name="doc" class="btn"/>
+		<br><br><br>
+		<input type="submit" value="submit" class="btn"/>
+	</form>
+</body>
+</html>
+'''
+
+class SimpleHTTPFileRequestHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+
+	def do_GET(self):
+		print self.command, self.path, self.request_version
+		print self.headers
+		self.simple_response(INDEX_HTML)
+
+	def do_POST(self):
+		print self.command, self.path, self.request_version
+		print self.headers
+		boundary = self.get_boundary(self.headers["Content-Type"])
+		data_len = int(self.headers["Content-Length"])
+		self.data_receive(self.rfile, data_len, boundary)
+		self.simple_response(INDEX_HTML)
+
+	def get_boundary(self, content_type_string):
+		s = content_type_string
+		return s[s.find('boundary=')+9:]
+
+	def get_filename(self, data_head):
+		l = data_head.find('filename="')
+		assert l != -1
+		l += 10
+		r = data_head.find('"', l)
+		return data_head[l:r]
+
+	def old_data_receive(self, ifd, len, boundary):
+		ofd = open(boundary, 'wb')
+		rest_len = len
+		while rest_len > 0:
+			size = rest_len
+			if rest_len > 1024:
+				size = 1024
+			rest_len -= size
+			ofd.write(ifd.read(size))
+		ofd.close()
+		ifd.close()
+
+	def data_receive(self, ifd, _len, boundary):
+		ofd = None
+		# print boundary, len(boundary)
+		last_len = len(boundary) + 8	# boundary前后各两个--和\r\n
+		rest_len = _len - last_len
+		while rest_len > 0:
+			size = rest_len
+			if rest_len > 1024:
+				size = 1024
+			rest_len -= size
+			if ofd == None:
+				data_head = ifd.read(size)
+				l = data_head.find('\r\n\r\n')
+				assert l != -1
+				filename = self.get_filename(data_head[:l])
+				ofd = open(filename, 'wb')
+				ofd.write(data_head[l+4:])
+			else:
+				ofd.write(ifd.read(size))
+		ofd.close()
+		ifd.read(last_len)
+		ifd.close()
+
+	def simple_response(self, data):
+		self.send_response(200)
+		self.send_header("Content-Type", "text/html;charset=utf-8")
+		self.send_header("Content-Length", len(data))
+		self.end_headers()
+		self.wfile.write(data)
+		self.wfile.close()
+
+def test(HandlerClass = SimpleHTTPFileRequestHandler,
+		ServerClass = BaseHTTPServer.HTTPServer):
+	if sys.argv[1:]:
+		port = int(sys.argv[1])
+	else:
+		port = 8000
+	server_address = ('0.0.0.0', port)
+
+	HandlerClass.protocol_version = 'HTTP/1.0'
+	httpd = ServerClass(server_address, HandlerClass)
+
+	sa = httpd.socket.getsockname()
+	print "Serving HTTP on", sa[0], "port", sa[1], "..."
+	httpd.serve_forever()
+
+if __name__ == '__main__':
+	test()
