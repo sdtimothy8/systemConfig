@@ -1,9 +1,11 @@
 set nu
 set ic
-colorscheme desert
+"colorscheme desert
 syntax on
-"set background=dark
-"colorscheme solarized
+syntax enable
+set background=dark
+"let g:solarized_termcolors=256
+colorscheme solarized
 
 "set 4 spaces for Tab
 set ts=4
@@ -46,6 +48,11 @@ filetype off                  " required
 
  Plugin 'sdtimothy8/YouCompleteMe'
  Plugin 'sdtimothy8/delimitMate'
+
+ " For them solarized
+ Plugin 'sdtimothy8/vim-colors-solarized'
+ Plugin 'sdtimothy8/dircolors-solarized'
+ Plugin 'Anthony25/gnome-terminal-colors-solarized'
 
  "Plugin 'Raimondi/delimitMate'
 

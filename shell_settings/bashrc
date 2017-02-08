@@ -37,6 +37,11 @@ export TERM=xterm-256color
 
 # For vim usage
 alias tags='ctags -R .' 
+if [ -f ~/.dir_colors/dircolors.256dark ]
+then
+    eval `dircolors ~/.dir_colors/dircolors.256dark`
+fi
+
 
 # For git usage
 alias gst='git status' 

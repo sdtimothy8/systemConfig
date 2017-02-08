@@ -61,6 +61,14 @@ fi
 ln -s $vim_config_path/vimrc /root/.vimrc
 ln -s $vim_config_path/vim /root/.vim
 
+# Set the solarized them for vim
+if [ -e /root/.dir_colors ]
+then
+    rm -rf /root/.dir_colors
+fi
+
+ln -s $vim_config_pah/vim/bundle/dircolors-solarized/dircolors.256dark /roor/.dir_colors
+
 # Install plugin Vundle for vim
 echo "#########################"
 echo "Begin Install the vim plugin Vundle:"
