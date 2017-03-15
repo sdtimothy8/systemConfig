@@ -32,6 +32,7 @@ alias cdligm='cd /export/ligm/'
 alias cdgit='cd /export/ligm/my_git_repo/'
 alias ligm='vim /export/ligm/my_git_repo/linux_learning/learning.txt' 
 alias share='nohup synergy >/dev/null 2>&1 &'
+alias mountwin='mount -t cifs -o username=ligm,password=love661314 //10.72.125.239/share /mnt/share'
 
 export TERM=xterm-256color
 
@@ -48,4 +49,8 @@ alias gst='git status'
 alias commit='git commit'
 alias pushmaster='git push origin master'
 alias log='git log'
+alias pull='git pull --rebase'
+
+# For shadowsocks
+alias socks='nohup sslocal -c /etc/shadowsocks.json > /dev/null 2>&1&'
 
